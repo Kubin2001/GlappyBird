@@ -3,13 +3,15 @@
 #include <ctime>
 #include "game.h"
 
+bool status = true;
+
 int main(int argc, char* argv[]){
     srand(time(nullptr));
     Game *game = new Game();
 
     game->initialize();
 
-    while (true) {
+    while (status) {
         game->update();
 
         game->render();

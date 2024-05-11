@@ -7,6 +7,8 @@
 #include "Font.h"
 #include "SDL_mixer.h"
 
+extern bool status;
+
 Game::Game() {
     window = nullptr;
     renderer = nullptr;
@@ -27,9 +29,8 @@ void Game::initialize() {
     map = new Map(renderer);
     font = new Font();
 
-    if (Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 2048) < 0) {
-        std::cerr << "Failed to initialize SDL_mixer: " << Mix_GetError() << std::endl;
-    }
+    Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 2048);
+
 
     soundFling = Mix_LoadWAV("Sounds/fling.wav");
     soundPoint = Mix_LoadWAV("Sounds/point.wav");
@@ -90,8 +91,7 @@ void Game::events() {
         previousPoints = 0;
     }
 
-
-
+    if (state[SDL_SCANCODE_ESCAPE]) { status = false; }
 }
 
 void Game::render() {
