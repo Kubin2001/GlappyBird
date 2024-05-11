@@ -31,7 +31,9 @@ void Game::initialize() {
         std::cerr << "Failed to initialize SDL_mixer: " << Mix_GetError() << std::endl;
     }
 
-    sound = Mix_LoadWAV("Sounds/sound.mp3");
+    soundFling = Mix_LoadWAV("Sounds/fling.wav");
+    soundPoint = Mix_LoadWAV("Sounds/point.wav");
+    soundLose = Mix_LoadWAV("Sounds/lose.wav");
 
     font->SetTexture(load("Textures/font.png", renderer));
 
@@ -54,9 +56,10 @@ void Game::update() {
 void Game::events() {
     SDL_PumpEvents();
     const Uint8* state = SDL_GetKeyboardState(NULL);
-    player->Movement(state);
+    player->Movement(state,soundFling);
     if (map->CheckPoints(player)) {
         points++;
+        Mix_PlayChannel(-1, soundPoint, 0);
         previousPoints = points;
     }
 
@@ -79,7 +82,7 @@ void Game::events() {
     }
 
     if (map->Collision(player)) {
-        Mix_PlayChannel(-1, sound, 0);
+        Mix_PlayChannel(-1, soundLose, 0);
         SDL_Delay(2000);
         map->Reset();
         player->Reset();

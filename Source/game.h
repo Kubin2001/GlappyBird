@@ -17,7 +17,9 @@ private:
     SDL_Rect backgroundRectangle{ 0, 0, 1280, 720 };
     int points = 0;
     int previousPoints = 0;
-    Mix_Chunk* sound = nullptr;
+    Mix_Chunk* soundFling = nullptr;
+    Mix_Chunk* soundPoint = nullptr;
+    Mix_Chunk* soundLose = nullptr;
 
 
 

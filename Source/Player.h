@@ -1,6 +1,7 @@
 #pragma once
 #include <iostream>
 #include <SDL.h>
+#include "SDL_mixer.h"
 
 
 class Player
@@ -24,7 +25,7 @@ class Player
 
         void Reset();
 
-        void Movement(const Uint8* state);
+        void Movement(const Uint8* state, Mix_Chunk* sound);
 
         ~Player();
 };

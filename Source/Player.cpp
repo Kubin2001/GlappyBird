@@ -1,6 +1,7 @@
 #include <iostream>
 #include <SDL.h>
 #include "Player.h"
+#include "SDL_mixer.h"
 
 Player::Player(SDL_Renderer * renderer) {
     this->renderer = renderer;
@@ -29,10 +30,11 @@ void Player::Render() {
 
 }
 
-void Player::Movement(const Uint8* state) {
+void Player::Movement(const Uint8* state, Mix_Chunk* sound) {
     if (state[SDL_SCANCODE_UP]) {
         if (buffer == 0) {
             buffer = 10;
+            Mix_PlayChannel(-1, sound, 0);
         }
     }
     if (buffer > 0) {
